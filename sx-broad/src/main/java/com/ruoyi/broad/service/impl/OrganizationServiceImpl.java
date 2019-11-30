@@ -142,6 +142,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 	@DataSource(value = DataSourceType.SLAVE)
 	public int deleteOrganizationByIds(String ids)
 	{
+		organizationMapper.deleteOrganizationById(ids);
 		return organizationMapper.deleteOrganizationByIds(Convert.toStrArray(ids));
 	}
 

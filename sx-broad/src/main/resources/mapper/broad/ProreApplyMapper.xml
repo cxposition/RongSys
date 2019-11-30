@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap type="ProApplyUser" id="ProApplyUserResult">
+        <result property="requires"    column="requires"    />
         <result property="paid"    column="paid"    />
         <result property="pname"    column="pname"    />
         <result property="uname"    column="uname"    />
@@ -73,6 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectProrApplyUserList" parameterType="ProApplyUser" resultMap="ProApplyUserResult">
         select
+        pa.requires as requires,
         pa.paid as paid,
         pa.pname as pname,
         u.uname as uname,

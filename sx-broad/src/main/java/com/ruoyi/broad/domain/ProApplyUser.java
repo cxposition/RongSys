@@ -33,6 +33,15 @@ public class ProApplyUser extends BaseEntity
     /** 是否回复 */
     private String isreply;
 
+    private String requires;
+
+    public String getRequires() {
+        return requires;
+    }
+
+    public void setRequires(String requires) {
+        this.requires = requires;
+    }
 
     public void setPaid(Integer paid)
     {

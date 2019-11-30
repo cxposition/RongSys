@@ -36,7 +36,7 @@
 				<div class="select-list">
 					<ul>
 						<li>
-							<input type="text" name="aid" th:type="hidden" id="aid" style="width: 100px"/>
+							区域ID：<input type="text" name="aid" id="aid" style="width: 100px"/>
 						</li>
 
 						<!--<li>-->
@@ -52,7 +52,7 @@
 						</li>
 
 						<li>
-							所属用户：<input type="text" name="username" id="username" style="width: 100px"/>
+							所属用户：<input type="text" name="uname" id="uname" style="width: 100px"/>
 						</li>
 
 						<li>
@@ -131,6 +131,7 @@
             removeUrl: prefix + "/remove",
             rdsSetUrl: prefix + "/rdsSet",
             fmfrequencyUrl: prefix + "/fmfrequencySet",
+			uniqueId: "tid",
             striped:true,
             modalName: "终端管理",
             showExport: true,
@@ -140,18 +141,6 @@
                 checkbox: true
 
             },
-                {
-                    title : '操作',
-                    visible: true,
-                    width: 50 ,
-                    formatter: function (value, row, index) {
-                        var actions = [];
-						actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="phoneEdit(\'' + row.tid + '\')"><i class="fa fa-edit" ></i>修改授权号码</a> ');
-                        actions.push('<a class="btn btn-success btn-xs '+editFlag + '" href="#" onclick="$.operate.edit(\'' + row.tid + '\')"><i class="fa fa-edit" ></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.tid + '\')"><i class="fa fa-remove"></i>删除</a>');
-                        return actions.join('');
-                    }
-                },
                 {
                     field : 'tid',
                     title : '终端IMEI',
@@ -372,6 +361,18 @@
                     field : 'hbtime',
                     title : '心跳包时间',
                     align: 'center'
+                },
+                {
+                    title : '操作',
+                    visible: true,
+                    width: 50 ,
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + '" href="#" onclick="phoneEdit(\'' + row.tid + '\')"><i class="fa fa-edit" ></i>修改授权号码</a> ');
+                        actions.push('<a class="btn btn-success btn-xs '+editFlag + '" href="#" onclick="$.operate.edit(\'' + row.tid + '\')"><i class="fa fa-edit" ></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.tid + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
                 }
             ]
         };

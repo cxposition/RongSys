@@ -133,4 +133,18 @@ public class PerController extends BaseController {
     {
         return toAjax(iProgramService.deleteProgram(ids));
     }
+
+
+//    /**
+//     * 导出节目单运转列表
+//     */
+//    @PostMapping("/export")
+//    @ResponseBody
+//    public AjaxResult export(Program program)
+//    {
+//        List<Program> list = iProgramService.selectProList(program);
+//        ExcelUtil<Program> util = new ExcelUtil<Program>(Program.class);
+//        return util.exportExcel(list, "Program");
+//    }
+
 }

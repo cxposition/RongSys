@@ -32,8 +32,8 @@ public class bFileUtil {
         try {
             // 保存文件音频
             File targetFile = new File(path);
-            if (!targetFile.exists()) {
-                targetFile.mkdirs();
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
             }
             file.transferTo(new File(path + "/" + saveName));  //文件保存，写入内存
         } catch (Exception e) {
@@ -165,4 +165,50 @@ public class bFileUtil {
         }
         return false;
     }
+
+
+    /**
+     * Doc文件上传封装
+     * @param file
+     * @return docName 保存成功的文件名
+     */
+    public static String uplodeDocFile(MultipartFile file){
+        SimpleDateFormat dateFormat=new SimpleDateFormat("YYYYMMdd");
+        String date = dateFormat.format(new Date());
+
+        String filename =file.getOriginalFilename();
+        String fileurl="";
+        if(file!=null ){
+            filename = date+filename;//生成时间开始的文件名
+            if ( file != null  && !file.isEmpty()) {
+                //filename = filename + "." + bFileUtil.getFileSuffix(file.getOriginalFilename());//获取文件名
+                fileurl = saveDoc(file,filename);
+            }
+        }
+        return fileurl;
+    }
+
+    /**
+     * Doc申请文件存储完整路径（{user.home}/profile/applyfile//XXX.docx）
+     * @param file
+     * @param saveName
+     * @return 返回相对路径
+     */
+    public static String saveDoc(MultipartFile file,String saveName) {
+        String path = bConst.FILEPATHAPPLY; //设置上传路径
+        logger.info(" --- Doc申请文件存储完整路径+文件名：", path, saveName,file.getOriginalFilename());
+        try {
+            File targetFile = new File(path);
+            if (!targetFile.exists()) {
+                targetFile.mkdirs();
+            }
+            file.transferTo(new File(path + "/" + saveName));  //文件保存，写入内存
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.info("--- doc文件保存异常：---" + e.getMessage());
+//            return null;
+        }
+        return saveName; //filePath + "/" + saveName
+    }
+
 }

@@ -23,7 +23,6 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">所属用户：</label>
             <div class="col-sm-8">
-<!--                <select class="form-control" onclick="getUserInfo(this,'所属用户')" id="userinfo" name="userid">-->
                 <select class="form-control" id="userinfo" name="userid">
                     <option value="">--请选择权限人--</option>
                 </select>
@@ -35,10 +34,6 @@
             <label class="col-sm-3 control-label">终端类型 ：</label>
             <div class="col-sm-8">
                 <select class="form-control" id="terminaltype" name="terminaltype" disabled>
-<!--                    <option value="yingji" id="yingjis">应急广播终端</option>-->
-<!--                    <option value="houbei" id="houbeis">后备能源型终端</option>-->
-<!--                    <option value="fashe" id="fashes">发射机型终端</option>-->
-
                     <option value="1" id="yingjis">应急广播终端</option>
                     <option value="2" id="houbeis">后备能源型终端</option>
                     <option value="3" id="fashes">发射机型终端</option>
@@ -58,12 +53,6 @@
                 <input id="tname" name="tname" class="form-control" type="text" required placeholder="请输入终端设备名称">
             </div>
         </div>
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label">设备编号：</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                <input id="tid1" name="tid1" class="form-control" type="text" placeholder="请输入终端设备名称">-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="form-group">
             <label class="col-sm-3 control-label">终端交互时间：</label>
             <div class="col-sm-8">
@@ -194,9 +183,8 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">是否启用：</label>
             <div class="col-sm-8">
-                <!--                <input id="isuse" name="isuse" class="form-control" type="text" placeholder="请输入是否启用">-->
                 <form id="use">
-                    <input type="radio" name="isuse" value="true">是
+                    <input type="radio" name="isuse" value="true" checked>是
                     <input type="radio" name="isuse" value="false">否
                 </form>
             </div>

@@ -44,8 +44,8 @@
             </td>
             <td style="vertical-align:top;padding-left:5px">
                 <select class="chosen-select form-control" name="key2" id="key2" data-placeholder="关键词" style="vertical-align:top;width:180px;height: 40px;">
-                    <option value="m.tid">终端IMEI</option>
                     <option value="tname">终端名称</option>
+                    <option value="m.tid">终端IMEI</option>
                     <option value="uname">所属用户</option>
                     <option value="aname">所属分组</option>
                     <option value="lastaccesstime">终端最后访问日期</option>
@@ -68,9 +68,9 @@
             </td>
             <td style="vertical-align:top;padding-left:5px">
                 <select class="chosen-select form-control" name="key3" id="key3" data-placeholder="关键词" style="vertical-align:top;width:180px;height: 40px;">
-                    <option value="m.tid">终端IMEI</option>
-                    <option value="tname">终端名称</option>
                     <option value="uname">所属用户</option>
+                    <option value="tname">终端名称</option>
+                    <option value="m.tid">终端IMEI</option>
                     <option value="aname">所属分组</option>
                     <option value="lastaccesstime">终端最后访问日期</option>
                     <option value="intertime">终端交互时间</option>
@@ -122,7 +122,6 @@
     var ctx = [[@{/}]];
     var terdata = [];
     var points = [];
-    debugger
     terdata = [[${mapinfoList}]];
     for (var i = 0; i < [[${mapinfoList.size()}]]; i++) {
         points.push({
@@ -211,56 +210,56 @@
         var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
         thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
     }
-    function  update_show(nPoint) {
-        var allOverlay = map.getOverlays();
-        for(var i = 0;i<allOverlay.length;i++) {
-            if(allOverlay[i].toString()=="[object Marker]") {
-                if (allOverlay[i].getPosition().lng == nPoint.lng && allOverlay[i].getPosition().lat == nPoint.lat) {
-                    map.removeOverlay(allOverlay[i]);
-                }
-            }
-        }
-        var status = $("input[name='status']").is(':checked') == true ? true : false;
-        nPoint.isuse=status;
-        $.ajax({
-            cache : false,
-            type : "POST",
-            url : ctx + "broad/organization/isuseSet",
-            data : {
-                "tid": nPoint.tid,
-                "isuse": status,
-            },
-            error : function(request) {
-                $.modal.alertError("系统错误");
-            }
-        });
-        if($("input[name='status']").is(':checked')==true){
-            console.log($("input[name='status']").is(':checked'));
-            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
-            var marker = new BMap.Marker(point);
-            map.addOverlay(marker);
-            //添加监听事件
-            (function() {
-                var thePoint = nPoint;
-                marker.addEventListener("click",
-                    function() {
-                        showInfo(this,thePoint);
-                    });
-            })();
-        }else{
-            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
-            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 10 * 25)});//标注换颜色
-            var marker = new BMap.Marker(point,{icon:stopIcon});
-            map.addOverlay(marker);
-            //添加监听事件
-            (function() {
-                var thePoint = nPoint;
-                marker.addEventListener("click",
-                    function() {
-                        showInfo(this,thePoint);
-                    });
-            })();
-        }
-    }
+//    function  update_show(nPoint) {
+//        var allOverlay = map.getOverlays();
+//        for(var i = 0;i<allOverlay.length;i++) {
+//            if(allOverlay[i].toString()=="[object Marker]") {
+//                if (allOverlay[i].getPosition().lng == nPoint.lng && allOverlay[i].getPosition().lat == nPoint.lat) {
+//                    map.removeOverlay(allOverlay[i]);
+//                }
+//            }
+//        }
+//        var status = $("input[name='status']").is(':checked') == true ? true : false;
+//        nPoint.isuse=status;
+//        $.ajax({
+//            cache : false,
+//            type : "POST",
+//            url : ctx + "broad/organization/isuseSet",
+//            data : {
+//                "tid": nPoint.tid,
+//                "isuse": status,
+//            },
+//            error : function(request) {
+//                $.modal.alertError("系统错误");
+//            }
+//        });
+//        if($("input[name='status']").is(':checked')==true){
+//            console.log($("input[name='status']").is(':checked'));
+//            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
+//            var marker = new BMap.Marker(point);
+//            map.addOverlay(marker);
+//            //添加监听事件
+//            (function() {
+//                var thePoint = nPoint;
+//                marker.addEventListener("click",
+//                    function() {
+//                        showInfo(this,thePoint);
+//                    });
+//            })();
+//        }else{
+//            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
+//            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 10 * 25)});//标注换颜色
+//            var marker = new BMap.Marker(point,{icon:stopIcon});
+//            map.addOverlay(marker);
+//            //添加监听事件
+//            (function() {
+//                var thePoint = nPoint;
+//                marker.addEventListener("click",
+//                    function() {
+//                        showInfo(this,thePoint);
+//                    });
+//            })();
+//        }
+//    }
 </script>
 </html>

@@ -1,8 +1,13 @@
 package com.ruoyi.web.controller.broad;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.ruoyi.broad.domain.ProApplyUser;
+import com.ruoyi.broad.utils.bConst;
+import com.ruoyi.broad.utils.bFileUtil;
 import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.service.ISysUserService;
@@ -10,11 +15,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.broad.domain.ProreApply;
@@ -23,6 +24,7 @@ import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 节目申请 信息操作处理
@@ -112,12 +114,34 @@ public class ProreApplyController extends BaseController
 	/**
 	 * 新增保存节目申请
 	 */
-	@RequiresPermissions("broad:proreApply:add")
+//	@RequiresPermissions("broad:proreApply:add")
 	@Log(title = "新增节目申请", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(ProreApply proreApply)
-	{		
+	public AjaxResult addSave(@RequestParam(value = "files") MultipartFile file,
+			                  @RequestParam(value="pname") String pname,
+							  @RequestParam(value="requires") String requires,
+							  @RequestParam(value="timelimit") String timelimit,
+							  @RequestParam(value="isemergency") String isemergency,
+							  @RequestParam(value="filename") String filename)throws IOException
+	{
+		SimpleDateFormat sim=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time=sim.format(new Date());
+
+		String userId = ShiroUtils.getSysUser().getUserId().toString();//获取用户信息
+		String fileurl = bFileUtil.uplodeDocFile(file);//存文件
+
+		//存放节目名称、录制要求、是否紧急、时间要求、doc文件、filename要求文稿名称、fileurl文件路径、申请时间
+		ProreApply  proreApply = new ProreApply();
+		proreApply.setPname(pname);
+		proreApply.setUserid(userId);
+		proreApply.setRequires(requires);
+		proreApply.setIsemergency(isemergency=="true"?true:false);
+		proreApply.setTimelimit(timelimit);
+		proreApply.setFilename(bConst.FILEPATHAPPLY+filename);
+		proreApply.setFileurl(fileurl);
+		proreApply.setSubmittime(time);
+
 		return toAjax(proreApplyService.insertProreApply(proreApply));
 	}
 

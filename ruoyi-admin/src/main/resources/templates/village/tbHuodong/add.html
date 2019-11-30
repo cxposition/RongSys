@@ -1,88 +1,123 @@
 <!DOCTYPE HTML>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
+</head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-tbHuodong-add">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">活动昵称：</label>
 				<div class="col-sm-8">
-					<input id="hdtitle" name="hdtitle" class="form-control" type="text">
+					<input id="hdtitle" name="hdtitle" class="form-control" type="text" placeholder="请填写活动昵称">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">活动类别：</label>
 				<div class="col-sm-8">
-					<input id="hdtype" name="hdtype" class="form-control" type="text">
+					<input id="hdtype" name="hdtype" class="form-control" type="text" placeholder="请填写活动类别">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">活动地点：</label>
 				<div class="col-sm-8">
-					<input id="hdloc" name="hdloc" class="form-control" type="text">
+					<input id="hdloc" name="hdloc" class="form-control" type="text" placeholder="请填写活动地点">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">活动人数：</label>
 				<div class="col-sm-8">
-					<input id="hdnum" name="hdnum" class="form-control" type="text">
+					<input id="hdnum" name="hdnum" class="form-control" type="text" placeholder="请填写活动人数">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">活动开始时间：</label>
-				<div class="col-sm-8">
-					<input id="hdbtime" name="hdbtime" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">活动结束日期：</label>
-				<div class="col-sm-8">
-					<input id="hdetime" name="hdetime" class="form-control" type="text">
-				</div>
-			</div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">活动开始时间：</label>
+                <div class="col-sm-8">
+                    <input class="form-control laydate-icon  layer-date"
+                           name="hdbtime"
+                           id="hdbtime"
+                           value=""
+                           readonly="readonly"
+                           style="width:120px;"
+                           placeholder="开始时间"
+                           title="活动开始时间"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">活动结束日期：</label>
+                <div class="col-sm-8">
+                    <input class="form-control laydate-icon  layer-date"
+                           name="hdetime"
+                           id="hdetime"
+                           value=""
+                           readonly="readonly"
+                           style="width:120px;"
+                           placeholder="结束日期"
+                           title="活动结束日期"/>
+                </div>
+            </div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">活动图片：</label>
 				<div class="col-sm-8">
 					<input id="hdpic" name="hdpic" class="form-control" type="text">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">活动简介：</label>
-				<div class="col-sm-8">
-					<input id="hdsum" name="hdsum" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">活动添加日期：</label>
-				<div class="col-sm-8">
-					<input id="hdadddate" name="hdadddate" class="form-control" type="text">
-				</div>
-			</div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">活动简介：</label>
+                <div class="col-sm-8">
+                    <textarea id="hdsum" name="hdsum"  autofocus></textarea>
+                    <!--②使用textare去作为富文本输入框-->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">活动添加日期：</label>
+                <div class="col-sm-8">
+                    <input class="form-control laydate-icon  layer-date"
+                           name="hdadddate"
+                           id="hdadddate"
+                           value=""
+                           readonly="readonly"
+                           style="width:120px;"
+                           placeholder="活动添加日期"
+                           title="活动添加日期"/>
+                </div>
+            </div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">添加人编号：</label>
 				<div class="col-sm-8">
-					<input id="uid" name="uid" class="form-control" type="text">
+					<input id="uid" name="uid" class="form-control" type="text" placeholder="请填写添加人编号">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">发布人姓名：</label>
 				<div class="col-sm-8">
-					<input id="uname" name="uname" class="form-control" type="text">
+					<input id="uname" name="uname" class="form-control" type="text" placeholder="请填写发布人姓名">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">用户所属地区村社区 aid：</label>
 				<div class="col-sm-8">
-					<input id="aid" name="aid" class="form-control" type="text">
+                    <input  class="form-control" type="text" id="aid" name="aid" onclick="selectAidTree()" readonly="true" placeholder="点击选择区域">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">是否有效：</label>
-				<div class="col-sm-8">
-					<input id="remark" name="remark" class="form-control" type="text">
-				</div>
-			</div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">是否有效：</label>
+                <div class="col-sm-8">
+                    <select class="chosen-select form-control" id="remark" name="remark"  type="text" placeholder="请选择是否有效">
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select>
+                </div>
+            </div>
 		</form>
 	</div>
     <div th:include="include::footer"></div>
@@ -102,5 +137,66 @@
 	        }
 	    }
 	</script>
+    <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+    <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+    <!--时间插件-->
+    <script>
+        laydate({
+            elem:"#hdbtime",
+            event:"focus"
+        });
+        laydate({
+            elem:"#hdetime",
+            event:"focus"
+        });
+        laydate({
+            elem:"#hdadddate",
+            event:"focus"
+        });
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+            //执行一个laydate实例
+            laydate.render({
+                elem:"#village",
+                type: 'time',
+            });
+        });
+
+        /*用户管理-新增-选择用户所属区域树*/
+        function selectAidTree() {
+            var url = "/broad/organization/selectAidTree";
+            var options = {
+                title: '选择区域',
+                width: "380",
+                url: "/broad/organization/selectAidTree",
+                callBack: doSubmitAid
+            };
+            $.modal.openOptions(options);
+        }
+        /*该模块是选择用户所属区域树的提交功能模块，body.find()方法中该使用框架固定的treeId、treeName*/
+        function doSubmitAid(index, layero){
+            var tree = layero.find("iframe")[0].contentWindow.$._tree;
+            if ($.tree.notAllowParents(tree)) {
+                var body = layer.getChildFrame('body', index);
+                $("#aid").val(body.find('#treeId').val());
+                /*console.log(body.find('#treeId').val());
+                console.log(body.find('#treeName').val());*/
+                layer.close(index);
+            }
+        }
+    </script>
+    <!--③引入富文本框需要的js文件-->
+    <script th:src="@{/js/plugins/simditor/module.js}"></script>
+    <script th:src="@{/js/plugins/simditor/uploader.js}"></script>
+    <script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
+    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+    <script th:src="@{/js/plugins/simditor/simditor.js}"></script>
+    <!--④定义富文本框-->
+    <script>
+        var editor = new Simditor({toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#hdsum',});
+    </script>
+    <script>
+        $(document).ready(function(){Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
+    </script>
 </body>
 </html>

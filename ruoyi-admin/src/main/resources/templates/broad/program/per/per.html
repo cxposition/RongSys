@@ -93,10 +93,10 @@
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:per:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:per:remove">
-					<i class="fa fa-remove"></i> 删除
-				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:per:export">
+<!--				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:per:remove">-->
+<!--					<i class="fa fa-remove"></i> 删除-->
+<!--				</a>-->
+				<a class="btn btn-warning" onclick="$.table.exportExcel()">
 						<i class="fa fa-download"></i> 导出
 				 </a>
 			</div>
@@ -126,7 +126,7 @@
                 exportUrl: prefix + "/export",
                 modalName: "节目单管理",
                 search: false,
-                showExport: false,
+				showExport: false,
                 columns: [{
                     checkbox: true
                 },

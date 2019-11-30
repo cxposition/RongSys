@@ -12,9 +12,36 @@
                         <li>
                             播出单ID：<input type="text" name="sfid"/>
                         </li>
-
                         <li>
                             节目名称：<input type="text" name="pname"/>
+                        </li>
+                        <li>
+                            终端名称：<input type="text" name="tname"/>
+                        </li>
+                        <li>
+                            分组名称：<input type="text" name="aid"/>
+                        </li>
+                        <li>
+                            IMEI号：<input type="text" name="tid"/>
+                        </li>
+                        <li class="select-time">
+                            <label>播出时间：</label><input class="laydate-icon  layer-date"
+                                                       name="downtime"
+                                                       id="recivedtime"
+                                                       value=""
+                                                       readonly="readonly"
+                                                       style="width:120px;"
+                                                       placeholder="开始日期"
+                                                       title="开始日期"/>
+                            <span>-</span>
+                            <input class="laydate-icon  layer-date"
+                                   name="endtime"
+                                   id="endtime"
+                                   value=""
+                                   readonly="readonly"
+                                   style="width:120px;"
+                                   placeholder="结束日期"
+                                   title="结束日期"/>
                         </li>
 
                         <li>
@@ -39,9 +66,9 @@
                 <a class="btn btn-success" onclick="$.operate.addTab()" shiro:hasPermission="system:user:add">
                     <i class="fa fa-plus"></i> 新增
                 </a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proSinmanage:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
+<!--				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proSinmanage:export">-->
+<!--						<i class="fa fa-download"></i> 导出-->
+<!--				 </a>-->
 			</div>
 		</div>
 	</div>
@@ -100,5 +127,47 @@
         });
 
     </script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+    <script>
+        laydate({
+            elem:"#recivedtime",
+            event:"focus"
+        });
+        laydate({
+            elem:"#recivedtime",
+            event:"focus"
+        });
+        layui.use('laydate', function(){
+            var laydate = layui.laydate;
+
+            //执行一个laydate实例
+            laydate.render({
+                elem:"#broad",
+                type: 'time',
+            });
+        });
+    </script>
+
+    <script>
+        laydate({
+            elem:"#endtime",
+            event:"focus"
+        });
+        laydate({
+            elem:"#endtime",
+            event:"focus"
+        });
+        layui.use('laydate', function(){
+            var laydate2 = layui.laydate;
+
+            //执行一个laydate实例
+            laydate2.render({
+                elem:"#broad",
+                type: 'time',
+            });
+        });
+    </script>
+
 </body>
 </html>

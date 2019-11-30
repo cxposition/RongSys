@@ -16,7 +16,16 @@
                         <li>
                             请选择所属村组：<input type="text" name="grouptype" id="grouptype" onclick="selectAidTree()"/>
                         </li>
-
+                        <li>
+                            <input class="laydate-icon  layer-date"
+                                   name="newtime"
+                                   id="newtime"
+                                   value=""
+                                   readonly="readonly"
+                                   style="width:120px;"
+                                   placeholder="选择新增人口日期"
+                                   title="至今日期"/>
+                        </li>
 
 
                         <li>
@@ -27,14 +36,14 @@
             </form>
         </div>
 
-        <div class="col-sm-12 select-table table-striped">
+        <div class="col-sm-12 select-table table-striped" style="width: 49%; margin-left: 1%">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>性别比例统计</h5>
                     <div class="ibox-tools">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-superpowers"></i>
-                        </a>
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+                            <!--<i class="fa fa-superpowers"></i>-->
+                        <!--</a>-->
                         <ul class="dropdown-menu dropdown-user">
                             <li><a onclick="init_sex_terminalstate()_terminalstate()">原始数据</a>
                             </li>
@@ -45,8 +54,83 @@
                     <div class="echarts" id="sex_terminalstate"></div>
                 </div>
             </div>
-
             </div>
+        <div class="col-sm-12 select-table table-striped" style="width: 49%; margin-right: 1%">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>年龄比例统计</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+                            <!--<i class="fa fa-superpowers"></i>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a onclick="init_age_terminalstate()_terminalstate()">原始数据</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="age_terminalstate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 select-table table-striped" style="width: 49%; height: 380px; margin-left: 1%;margin-top: 0%">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>复原军人比例2018~2019</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+                        <!--<i class="fa fa-superpowers"></i>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a onclick="init_demob_terminalstate()_terminalstate()">原始数据</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="demob_terminalstate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 select-table table-striped" style="width: 49%; height: 380px; margin-right: 1%;margin-top: 0%">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>低保户比例</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+                        <!--<i class="fa fa-superpowers"></i>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a onclick="init_lowincome_terminalstate()_terminalstate()">原始数据</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="lowincome_terminalstate"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 select-table table-striped" style="width: 98%; height: 380px;margin-top: 0%; margin-left: 1%" >
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>新增人口</h5>
+                    <div class="ibox-tools">
+                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="#">-->
+                        <!--<i class="fa fa-superpowers"></i>-->
+                        <!--</a>-->
+                        <ul class="dropdown-menu dropdown-user">
+                            <li><a onclick="init_newpopu_terminalstate()_terminalstate()">原始数据</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="echarts" id="newpopu_terminalstate"></div>
+                </div>
+            </div>
+        </div>
             <!--<table id="bootstrap-table" data-mobile-responsive="true"></table>-->
         </div>
     </div>
@@ -65,18 +149,31 @@
     {
         $.modal.loading("正在查询，请稍后...");
            var grouptype=$("#grouptype").val();
+           var newtime=$("#newtime").val();
         $.ajax({
             url:prefix + "/count",
-            data :{"grouptype":$("#grouptype").val()},
+            data :{"grouptype":$("#grouptype").val(),"newtime":$("#newtime").val()},
             type : 'POST',
             dataType : 'text',
             success:function(data){
                 var count=data.split('|')[0];
                 var fnum=data.split('|')[1];  //男
                 var fmnun=data.split('|')[2]; //女
+                var agenum1=data.split('|')[3];  //年龄大于六十
+                var agenum2=data.split('|')[4];  //年龄小于十
+                var agenum3=data.split('|')[5];   //大于十小于六十
+                var isdemob=data.split('|')[6]; //是复原军人
+                var lowincome=data.split('|')[7]; //是低保
+                var agenum4=data.split('|')[8];// 新增人口
+                var notdemob=count-isdemob;// 不是复员军人
+                var notlowincome=count-lowincome;
+                var notpopu=count-agenum4; //不是新增人口
                 $.modal.closeLoading();
                init_sex_terminalstate(count,fnum,fmnun);
-
+               init_age_terminalstate(count,agenum1,agenum2,agenum3);
+               init_demob_terminalstate(count,isdemob,notdemob);
+               init_lowincome_terminalstate(count,lowincome,notlowincome);
+               init_newpopu_terminalstate(count,agenum4,notpopu);
             }
         })
 
@@ -99,7 +196,7 @@
             },
             series: [
                 {
-                    name: '访问来源',
+                    name: '统计数据',
                     type: 'pie',
                     radius: '90%',
                     center: ['50%', '50%'],
@@ -120,48 +217,152 @@
         bd_terminalstate.setOption(option);
     }
 
-    // $(function() {
-    //     var options = {
-    //         url: prefix + "/list",
-    //
-    //         modalName: "村民",
-    //
-    //
-    //         columns: [{
-    //             checkbox: true
-    //         },
-    //             {
-    //                 field : 'vid',
-    //                 title : '数据编号',
-    //                 visible: false
-    //             },
-    //             {
-    //                 field : 'vname',
-    //                 title : '记录总数',
-    //                 sortable: true
-    //             },
-    //             {
-    //                 field : 'sex',
-    //                 title : '男性人数',
-    //                 sortable: true
-    //             },
-    //
-    //             {
-    //                 field : 'sex',
-    //                 title : '女性人数',
-    //                 sortable: true
-    //             },
-    //
-    //             {
-    //                 field : 'phone',
-    //                 title : '图表',
-    //                 sortable: true
-    //             },
-    //
-    //            ]
-    //     };
-    //     $.table.init(options);
-    // });
+    //年龄比例样式
+    function init_age_terminalstate(count,agenum1,agenum2,agenum3) {
+        var bd_terminalstate = echarts.init(document.getElementById('age_terminalstate'));
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['年龄大于60', '年龄小于10','其他']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '90%',
+                    center: ['50%', '50%'],
+                    data: [
+                        {value: agenum1, name: '年龄大于60'},
+                        {value: agenum2, name: '年龄小于10'},
+                        {value: agenum3, name: '其他'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+
+        };
+        bd_terminalstate.setOption(option);
+    }
+
+    //复员军人
+    function init_demob_terminalstate(count,isdemob,notdemob) {
+        var bd_terminalstate = echarts.init(document.getElementById('demob_terminalstate'));
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['复员军人', '非复员军人']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '90%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value: isdemob, name: '复员军人'},
+                        {value: notdemob, name: '非复员军人'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+
+        };
+        bd_terminalstate.setOption(option);
+    }
+
+
+    //低保户
+    function init_lowincome_terminalstate(count,lowincome,notlowincome) {
+        var bd_terminalstate = echarts.init(document.getElementById('lowincome_terminalstate'));
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['低保户', '非低保户']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '90%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value: lowincome, name: '低保户'},
+                        {value: notlowincome, name: '非低保户'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+
+        };
+        bd_terminalstate.setOption(option);
+    }
+
+    //新增人口
+    function init_newpopu_terminalstate(count,agenum4,notpopu) {
+        var newtime=$("#newtime").val();
+        var bd_terminalstate = echarts.init(document.getElementById('newpopu_terminalstate'));
+        option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['新增人口:'+newtime+'至今', '非新增人口']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '90%',
+                    center: ['50%', '55%'],
+                    data: [
+                        {value: agenum4, name: '新增人口:'+newtime+'至今'},
+                        {value: notpopu, name: '非新增人口'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }]
+
+        };
+        bd_terminalstate.setOption(option);
+    }
 
     /*用户管理-新增-选择用户所属区域树*/
     function selectAidTree() {
@@ -199,7 +400,22 @@
         }
     }
 </script>
-
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+    laydate({
+        elem:"#newtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#village",
+            type: 'time',
+        });
+    });
 </script>
 </body>
 </html>
