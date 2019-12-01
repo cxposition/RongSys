@@ -11,13 +11,13 @@
 <div class="container-div ui-layout-center">
     <div class="row">
         <div class="col-sm-12 select-table table-striped" style="width: 49%; margin-right: 1%" >
-            <p class="select-title">临时分组列表</p>
+            <h1 class="select-title">临时分组列表</h1>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">新增</button>
             <table id="bootstrap-table" data-mobile-responsive="true"></table>
         </div>
 
         <div class="col-sm-12 select-table table-striped" style="width: 49%; margin-left: 1%" >
-            <p class="select-title">终端列表</p>
+            <h1 class="select-title">终端列表</h1>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">添加终端设备</button>
             <table id="bootstrap-table-form" data-mobile-responsive="true"></table>
         </div>
@@ -125,13 +125,6 @@
                                 <label class="col-sm-3 control-label">备注：</label>
                                 <div class="col-sm-8">
                                     <input id="note" name="note" class="form-control" type="text">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label">创建时间：</label>
-                                <div class="col-sm-8">
-<!--                                    <input id="createtime" name="createtime" class="form-control" type="text">-->
-                                    <input id="createtime" name="createtime" class="form-control" type="text" disabled>
                                 </div>
                             </div>
                         </form>
@@ -325,7 +318,6 @@
     // 新增特殊分组弹窗人员下拉框调取人员信息组件
     $(function getUserInfo(ele,msg) {
         $.get("/broad/dto/userinfos",function getmsg(params1,params2) {
-            console.log(params1 )
             for (let index = 0; index < params1.length; index++) {
                 let text = params1[index].uname;
                 let value1 = params1[index].userid;
@@ -335,8 +327,6 @@
         });
     })
 
-    $.modal.open(title, url, width, height, alert("hhha"));
-
     //提交表单
     function savetempgroup() {
         var params = $("#form-tempgroup-add").serializeArray();
@@ -344,6 +334,7 @@
         for( x in params ){
             values[params[x].name] = params[x].value;
         }
+        $("#form-tempgroup-add")[0].reset()
         $.ajax({
             url:"/broad/tempgroup/addtemp",
             type: "POST",
@@ -355,7 +346,6 @@
                 }else{
                     alert(data)
                 }
-                $("#form-tempgroup-add").reset()
             },
             error:function () {
                 alert("保存失败")
@@ -406,7 +396,6 @@
             success:function a(data){
                 alert(data.msg)
                 $(".fixed-table-toolbar .btn-group")[0].children[1].click();
-
             },
             error:function () {
                 alert("删除失败")
@@ -475,7 +464,7 @@
         for( x in params ){
             values[params[x].name] = params[x].value;
         }
-        // console.log(values)
+        $("#form-tempgroup-add")[0].reset()
         $.ajax({
             url:"/broad/tempgroup/update",
             type: "POST",
@@ -488,14 +477,13 @@
                 }else{
                     alert(data)
                 }
-                // $("#form-tempgroup-add").reset()
+                $("#form-tempgroup-add").reset()
             },
             error:function () {
                 alert("保存失败")
-                // $("#form-tempgroup-add").reset()
+
             }
         });
-
         $("#close-btn").click();
     }
 
@@ -519,7 +507,6 @@
         }
         $.tree.init(options);
     }
-
 
 </script>
 

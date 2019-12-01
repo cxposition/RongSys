@@ -1,5 +1,6 @@
 package com.ruoyi.broad.domain;
 
+import com.ruoyi.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
@@ -17,20 +18,31 @@ public class ProList extends BaseEntity
 	private String id;
 	
 	/** 节目编号 */
+	@Excel(name = "播出单id")
 	private String pid;
 	/** 操作记录 */
+	@Excel(name = "操作记录")
 	private String ptp;
 	/** 节目文件 */
+	@Excel(name = "节目文件")
 	private String fN;
 	/** 文件编号 */
+	@Excel(name = "文件编号")
 	private String fid;
 	/** 播放时间 */
+	@Excel(name = "播放时间")
 	private String bt;
+
 	/** 播放时长，只有电台转播有 */
+	@Excel(name = "播放时长")
 	private String broadtime;
+
 	/** 备注 */
+	@Excel(name = "备注")
 	private String remark;
+
 	/** 节目文件路径 */
+	@Excel(name = "节目文件路径")
 	private String urls;
 
 	public String getId() {

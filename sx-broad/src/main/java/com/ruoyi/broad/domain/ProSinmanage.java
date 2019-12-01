@@ -1,5 +1,6 @@
 package com.ruoyi.broad.domain;
 
+import com.ruoyi.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
@@ -15,25 +16,31 @@ public class ProSinmanage extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 节目播出单IDSin */
+	@Excel(name = "节目播出单IDSin")
 	private String sfid;
 	/** 节目播出单类别 */
+	@Excel(name = "节目播出单类别")
 	private String scategory;
 	/*提交时间*/
 	private String submittime;
 	/*节目名称*/
 	private String pname;
 
-	/*创建时间*/
+	/** 创建时间 */
+	@Excel(name = "创建时间")
 	private String createtime;
 	/** 播出日期 */
+	@Excel(name = "播出日期")
 	private String broaddate;
 	/** 操作（所属）用户 */
 	private String userid;
-	/*操作（所属）用户名*/
+	/** 操作（所属）用户名 */
 	private String username;
-	/** 操作（所属）用户 */
+	/** 操作（所属）用户名 */
+	@Excel(name = "操作（所属）用户名")
 	private String uname;
 	/** 备注 */
+	@Excel(name = "备注")
 	private String remark;
 	/** 紧急播出单播放次数 */
 	private String broadtimes;
